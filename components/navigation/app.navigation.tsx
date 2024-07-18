@@ -3,17 +3,19 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../review/home';
 import DetailScreen from '../review/detail';
 import AboutScreen from '../review/about';
-
+import AppHeader from './app.header';
 
 const HomeLayout = () => {
     const Stack = createNativeStackNavigator<RootStackParamList>();
 
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+        // screenOptions={{ headerShown: false }}
+        >
             <Stack.Screen
                 name="home"
                 component={HomeScreen}
-                options={{ title: 'Trang Chủ' }}
+                options={{ header: () => <AppHeader /> }}
             />
             <Stack.Screen
                 name="review-detail"
@@ -26,13 +28,17 @@ const HomeLayout = () => {
 const AppNavigation = () => {
     const Drawer = createDrawerNavigator();
     return (
-        <Drawer.Navigator>
+        <Drawer.Navigator
+        >
             <Drawer.Screen name="home1"
-                options={{ title: 'Trang chủ' }}
+                options={{ title: 'Trang chủ', header: () => <></> }}
                 component={HomeLayout} />
             <Drawer.Screen
                 name="about" component={AboutScreen}
-                options={{ title: 'Thông tin' }}
+                options={{
+                    title: 'Thông tin',
+                    header: () => <AppHeader />
+                }}
             />
         </Drawer.Navigator>
     )

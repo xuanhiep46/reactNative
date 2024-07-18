@@ -4,6 +4,7 @@ import {
     Button, FlatList, StyleSheet, Text, TouchableOpacity, View
 
 } from "react-native"
+import AppHeader from "../navigation/app.header";
 
 interface IReview {
     id: number;
@@ -30,7 +31,6 @@ const HomeScreen = (props: any) => {
     return (
         <View>
             <Text style={{ fontSize: 30 }}>Review list:</Text>
-
             <View>
                 <FlatList
                     data={reviews}
