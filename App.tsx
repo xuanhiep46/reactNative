@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Button, TextInput, StyleSheet, Text, View, ScrollView } from 'react-native';
+import { FlatList, Button, TextInput, StyleSheet, Text, View, ScrollView } from 'react-native';
+//import { FlatList } from 'react-native-gesture-handler';
 
 export default function App() {
   const [students, setStudents] = useState([
-    {id: 1, name: "xun1", age: 18},
+    {id: 1, name: "xun1", age: 18}, //key
     {id: 2, name: "xun2", age: 19},
     {id: 3, name: "xun3", age: 18},
     {id: 4, name: "xun4", age: 17},
@@ -13,15 +14,27 @@ export default function App() {
     {id: 8, name: "xun8", age: 13},
     {id: 9, name: "xun9", age: 12},
     {id: 10,name: "xun0", age: 11},
-
   ]) 
 
   //jsx
   return (
     <View style={styles.container}> 
     <Text style={{fontSize: 60}} >Hello world</Text>
-    {/* ScrollView - cho ứng dụng có thể kéo thả */}
-    <ScrollView>
+    
+    <FlatList
+    data={students}
+    //numColumns={2}//số cột
+    keyExtractor={item => item.id + ""} //Gắn id làm phần key cho phần flatlist
+    renderItem={({item}) => {
+      return (
+        <View style={styles.list}>
+          <Text>{item.name}</Text>
+        </View>
+      )
+    }}
+
+    />
+    {/* <ScrollView>
       {students.map(item => {
         //dùng vòng lặp map: tạo ra vòng lặp mà không làm thay đổi giá trị của biến ban đầu
         return (
@@ -30,7 +43,7 @@ export default function App() {
           </View>
         )
       })}
-    </ScrollView>
+    </ScrollView> */}
     </View>
   );
 }
@@ -48,9 +61,10 @@ const styles = StyleSheet.create({
   list: {
     padding: 20,
     backgroundColor: "pink",
-    marginBottom: 20
+    marginBottom: 20,
+    //marginHorizontal:30
   }
 });
 
-//đã coi tới 3:02:46
+//đã coi tới 3:25:11
 
