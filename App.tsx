@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { 
-  TouchableOpacity, FlatList, Button, TextInput, StyleSheet, 
-  Text, View, ScrollView, Touchable, Pressable} 
+  TouchableWithoutFeedback, TouchableOpacity, FlatList, Button, TextInput, 
+  StyleSheet, Text, View, ScrollView, Touchable, Pressable, 
+  Alert, Keyboard} 
 from 'react-native';
 
 interface ITodo {
@@ -20,7 +21,17 @@ export default function App() {
 
   const handleAddTodo = () => {
     if(!todo) {
-      alert("empty todo")
+      //Alert component
+      Alert.alert("Lỗi input todo", "Không được để trống",
+      [ 
+        // {
+        //   text: 'Hủy',
+        //   onPress: () => console.log('Cancel Pressed'),
+        //   style: 'cancel',
+        // },
+        {text: 'Xác nhận', onPress: () => console.log('OK Pressed')},
+      ]
+      )
       return;
     }
     setListTodo([...listTodo, 
@@ -31,13 +42,15 @@ export default function App() {
 
   const deleteTodo = (id: number) => {
     const newTodo = listTodo.filter(item => item.id !== id);
-    //điều kiện todo là giữ lại cái id khác với id mà các bạn ném vào
-    //đứa nào == id thì chúng ta sẽ vứt/lọc nó đi
     setListTodo(newTodo);
   }
 
   //jsx
   return (
+    // <TouchableWithoutFeedback onPress={() => console.log(">>> click me")}> 
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> 
+
+      {/* ứng dụng cho việc nhấn ra ngoài thì phần bàn phím nó sẽ tự đóng */}
   <View style={styles.container}> 
     {/* Header */}
     <Text style={styles.header} >To-do App</Text>
@@ -63,24 +76,19 @@ export default function App() {
         renderItem={({item}) => {
           return (
             <Pressable //thằng này là API mới nhất
-            onPress={() => deleteTodo(item.id)}>
+              onPress={() => deleteTodo(item.id)}
+              style={({pressed}) => ({opacity: pressed ? 0.5 : 1})}
+            >
               <Text 
               style={styles.todoItem}>{item.name}
               </Text>
-            </Pressable> //thằng này không có animation, phải tự thêm vào, nhưng nó sẽ cho bạn style animation
-
-            // <TouchableOpacity //thằng này là API cũ
-            //onPress={() => deleteTodo(item.id)}>
-            //   <Text 
-            //   style={styles.todoItem}>{item.name}
-            //   </Text>
-            // </TouchableOpacity> // thêm cái hiệu ứng cho những ô bạn bấm
+            </Pressable>
           )
         }}
       />
     </View>
-
   </View>
+  </TouchableWithoutFeedback>
   );
 }
 
