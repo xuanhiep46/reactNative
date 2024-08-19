@@ -22,9 +22,11 @@ export default function App() {
     <Text style={{fontSize: 60}} >Hello world</Text>
     
     <FlatList
-    data={students}
+    data={students} //lấy dữ liệu ở students
     //numColumns={2}//số cột
-    keyExtractor={item => item.id + ""} //Gắn id làm phần key cho phần flatlist
+    keyExtractor={item => item.id + ""} 
+    //Gắn id làm phần key cho phần flatlist
+    //phần này giúp cho code được tối ưu hơn
     renderItem={({item}) => {
       return (
         <View style={styles.list}>
@@ -32,6 +34,7 @@ export default function App() {
         </View>
       )
     }}
+    //Sao cái flatlist này sao nó giống vòng lặp thế nhỉ =))
 
     />
     {/* <ScrollView>
