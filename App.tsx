@@ -1,30 +1,40 @@
 import { useState } from 'react';
-import { FlatList, Button, TextInput, StyleSheet, Text, View, ScrollView } from 'react-native';
-//import { FlatList } from 'react-native-gesture-handler';
+import { 
+  TouchableOpacity, FlatList, Button, TextInput, StyleSheet, 
+  Text, View, ScrollView, Touchable, Pressable} 
+from 'react-native';
 
 interface ITodo {
   id: number;
   name: string;
-  //định nghĩa kiểu đối tượng cho nó
 }
+
 export default function App() {
   const [todo, setTodo] = useState("");
+  const [listTodo, setListTodo] = useState<ITodo[]>([]) 
 
-  const [listTodo, setListTodo] = useState<ITodo[]>([]) // '[]' nghĩa là mảng rỗng
-
-  //{id: 1, name: "watching xun"}
-
+  //hàm tạo id số random cho id
   function randomInteger(min: number, max:number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-  } //hàm tạo id số random cho id
+  }
 
   const handleAddTodo = () => {
-    if(!todo) return;
+    if(!todo) {
+      alert("empty todo")
+      return;
+    }
     setListTodo([...listTodo, 
       { id: randomInteger(2, 2000000), name: todo}
     ]);
-      setTodo("") // để rỗng thì mỗi khi m nhập xong thì phần chữ trong input nó sẽ tự động biến mất
-  }//tạo function như vầy chỉ cần gọi lại là nó tự chạy được
+      setTodo("") 
+  }
+
+  const deleteTodo = (id: number) => {
+    const newTodo = listTodo.filter(item => item.id !== id);
+    //điều kiện todo là giữ lại cái id khác với id mà các bạn ném vào
+    //đứa nào == id thì chúng ta sẽ vứt/lọc nó đi
+    setListTodo(newTodo);
+  }
 
   //jsx
   return (
@@ -35,13 +45,13 @@ export default function App() {
     {/* Form */}
     <View style={styles.body}>
       <TextInput 
-      value={todo} //kiểm soát giá trị cho nó
+      value={todo} 
       style = {styles.todoInput}
-      onChangeText={(value) => setTodo(value)} //in luôn giá trị mà bạn nhập vào
+      onChangeText={(value) => setTodo(value)}
       />
       <Button 
         title='Add todo'
-        onPress={handleAddTodo} //onPress: nhấn và nó sẽ ...
+        onPress={handleAddTodo} 
       />
     </View>
 
@@ -49,14 +59,25 @@ export default function App() {
     <View style={styles.body}>
       <FlatList
         data={listTodo}
-        keyExtractor={item => item.id+ ""} //để ở đây để nó biết cần phải render như thế nào
+        keyExtractor={item => item.id+ ""} 
         renderItem={({item}) => {
           return (
-            <Text style={styles.todoItem}>{item.name}</Text>
+            <Pressable //thằng này là API mới nhất
+            onPress={() => deleteTodo(item.id)}>
+              <Text 
+              style={styles.todoItem}>{item.name}
+              </Text>
+            </Pressable> //thằng này không có animation, phải tự thêm vào, nhưng nó sẽ cho bạn style animation
+
+            // <TouchableOpacity //thằng này là API cũ
+            //onPress={() => deleteTodo(item.id)}>
+            //   <Text 
+            //   style={styles.todoItem}>{item.name}
+            //   </Text>
+            // </TouchableOpacity> // thêm cái hiệu ứng cho những ô bạn bấm
           )
         }}
       />
-      {/* <Text>{JSON.stringify(listTodo)}</Text> : in ra phần listTodo*/}
     </View>
 
   </View>
@@ -107,7 +128,6 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: "pink",
     marginBottom: 20,
-    //marginHorizontal:30
   },
 
   body: {
@@ -116,5 +136,5 @@ const styles = StyleSheet.create({
   }
 });
 
-//đã coi tới 3:25:11
+//đã coi tới 
 
