@@ -6,12 +6,13 @@ import AboutScreen from "./components/review/about2";
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {useEffect} from 'react';
+import { OPENSANS_REGULAR } from "./utils/const2";
 
 SplashScreen.preventAutoHideAsync(); //chặn việc tự động ẩn đi
 
 const App = () => {
     const [loaded, error] = useFonts({
-        'OpenSans-Regular': require('./assets/fonts/OpenSans-Regular.ttf'),
+        [OPENSANS_REGULAR]: require('./assets/fonts/OpenSans-Regular.ttf'),
         });
 
         useEffect(() => { //khi vào trang thì cái hàm này nó sẽ chạy đầu tiên
