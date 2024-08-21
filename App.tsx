@@ -4,6 +4,7 @@ import {
   StyleSheet, Text, View, ScrollView, Touchable, Pressable, 
   Alert, Keyboard} 
 from 'react-native';
+import {AntDesign} from '@expo/vector-icons'; //có sẵn ở expo nên kh cần cài vào
 
 interface ITodo {
   id: number;
@@ -47,7 +48,7 @@ export default function App() {
 
   //jsx
   return (
-    // <TouchableWithoutFeedback onPress={() => console.log(">>> click me")}> 
+    // <TouchableWithoutFeedback onPress={() => console.log(">>> click me")}> .Thằng này là test thử thôi nhé
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> 
 
       {/* ứng dụng cho việc nhấn ra ngoài thì phần bàn phím nó sẽ tự đóng */}
@@ -56,7 +57,7 @@ export default function App() {
     <Text style={styles.header} >To-do App</Text>
 
     {/* Form */}
-    <View style={styles.body}>
+    <View style={styles.form}>
       <TextInput 
       value={todo} 
       style = {styles.todoInput}
@@ -69,7 +70,7 @@ export default function App() {
     </View>
 
     {/* List to-do */}
-    <View style={styles.body}>
+    <View style={styles.todo}>
       <FlatList
         data={listTodo}
         keyExtractor={item => item.id+ ""} 
@@ -79,9 +80,12 @@ export default function App() {
               onPress={() => deleteTodo(item.id)}
               style={({pressed}) => ({opacity: pressed ? 0.5 : 1})}
             >
-              <Text 
-              style={styles.todoItem}>{item.name}
-              </Text>
+              <View style={styles.groupTodo}>
+                <Text 
+                  style={styles.todoItem}>{item.name}
+                  <AntDesign name="close" size={24} color="black" />
+                </Text>
+              </View>
             </Pressable>
           )
         }}
@@ -94,12 +98,20 @@ export default function App() {
 
 //css in js
 const styles = StyleSheet.create({
+  groupTodo : {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between", //căn giữa 2 phần tử
+    borderWidth: 1,
+    borderStyle: "dashed",
+    marginBottom: 15,
+    marginHorizontal: 10,
+    padding:10,
+  },
   container: {
     paddingTop: 30,
     flex: 1,
     backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
 
   header: {
@@ -107,10 +119,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     textAlign: "center",
     fontSize:60,
+    //flex: 1,
   },
 
   form: {
-
+    //flex: 2,
+    marginBottom: 20,
   },
 
   todoInput: {
@@ -126,10 +140,13 @@ const styles = StyleSheet.create({
 
   todoItem : {
     fontSize:20,
-    borderWidth: 1,
-    borderStyle: "dashed",
-    marginBottom: 20,
-    padding:10,
+
+    //marginBottom: 20,
+    // padding:10,
+  },
+
+  todo : {
+    flex: 1,
   },
 
   list: {
@@ -144,5 +161,4 @@ const styles = StyleSheet.create({
   }
 });
 
-//đã coi tới 
-
+//đã coi tới 4:53:28  
