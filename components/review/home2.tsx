@@ -1,10 +1,13 @@
-import { View, Text } from "react-native"
+import { View, Text, Button } from "react-native"
 
 
 const HomeScreen = () => {
     return (
         <View>
-            <Text> Home Screen</Text>
+            <Text>Xun Home Screen</Text>
+            <Button title="View Detail"
+                onPress={() => alert("me")}
+            />
         </View>
     )
 }
