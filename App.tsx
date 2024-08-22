@@ -26,19 +26,19 @@ const App = () => {
         }
 
     //Điều hướng trang
-    const Stack = createNativeStackNavigator();
+    const Stack = createNativeStackNavigator<RootStackParamList>();
 
     return ( //tiếp theo thì bắt đầu render những cái bên dưới
         <NavigationContainer>
             <Stack.Navigator>
                     {/* màn hình 1 */}
                 <Stack.Screen 
-                name="Home" 
+                name="home" 
                 component={HomeScreen} 
                 options={{ title: 'Trang chủ' }} // giúp bạn đổi tên sang tiếng Việt từ 'home' sang 'trang chủ'
             /> 
                     {/* màn hình 2 */}
-            <Stack.Screen name="Details" 
+            <Stack.Screen name="review-detail" 
                 component={DetailScreen} />
             </Stack.Navigator>
         </NavigationContainer>
@@ -48,4 +48,6 @@ const App = () => {
 export default App;
 
 //kh học thuộc mà hãy hiểu cách nó hoạt động
-//điều hướng trang
+//Moving between screen (nevigation)
+
+//đã coi tới 6:11:18
