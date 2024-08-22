@@ -3,17 +3,6 @@ import { OPENSANS_REGULAR } from "../../utils/const2";
 import { NavigationProp, RouteProp, useNavigation } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
 
-const style = StyleSheet.create({
-    review : {
-        fontSize: 30,
-        fontFamily: OPENSANS_REGULAR,
-    },
-    reviewText : {
-        fontSize: 20,
-        fontFamily: OPENSANS_REGULAR,
-        padding: 15,
-    }
-})
 const DetailScreen = () => {
     const navigation : NavigationProp<RootStackParamList> = useNavigation(); //khai báo navigation qua type, dễ hơn khai báo qua prop
     const route: RouteProp<RootStackParamList, 'review-detail'> = useRoute();
@@ -30,5 +19,17 @@ const DetailScreen = () => {
         </View>
     )
 }
+
+const style = StyleSheet.create({
+    review : {
+        fontSize: 30,
+        fontFamily: OPENSANS_REGULAR,
+    },
+    reviewText : {
+        fontSize: 20,
+        fontFamily: OPENSANS_REGULAR,
+        padding: 15,
+    }
+})
 
 export default DetailScreen;

@@ -7,7 +7,7 @@ import {
 interface IReview {
     id: number;
     title: string;
-    start: number;
+    star: number;
 }
 
 const styles = StyleSheet.create({
@@ -22,8 +22,8 @@ const HomeScreen = (props: any) => {
     const navigation : NavigationProp<RootStackParamList> = useNavigation(); //khai báo navigation qua type, dễ hơn khai báo qua prop
     
     const [reviews, setReviews] = useState<IReview[]>([
-        {id: 1, title: "React Native", start: 5},
-        {id: 2, title: "hoidanit", start: 3},
+        {id: 1, title: "React Native", star: 5},
+        {id: 2, title: "hoidanit", star: 3},
     ]);
     return (
         <View>
