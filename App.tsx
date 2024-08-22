@@ -39,7 +39,9 @@ const App = () => {
             /> 
                     {/* màn hình 2 */}
             <Stack.Screen name="review-detail" 
-                component={DetailScreen} />
+                component={DetailScreen} 
+                options={{ title: 'Chi tiết Review' }}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     )
