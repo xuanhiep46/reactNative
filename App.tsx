@@ -1,54 +1,62 @@
-import { View, Text } from "react-native"
-import HomeScreen from "./components/review/home2";
-import DetailScreen from "./components/review/detail2";
-import AboutScreen from "./components/review/about2";
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-import {useEffect} from 'react';
-import { OPENSANS_REGULAR } from "./utils/const2";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+//Pick your age ranges
+import { useState } from 'react';
+import { 
+    Image, FlatList, Button, StyleSheet, Text, View, ScrollView, 
+    TouchableOpacity, SafeAreaView
+} from 'react-native';
+import styles from './styles';
 
-SplashScreen.preventAutoHideAsync(); 
 const App = () => {
-    const [loaded, error] = useFonts({
-        [OPENSANS_REGULAR]: require('./assets/fonts/OpenSans-Regular.ttf'),
-        });
+    const [count, setCount] = useState<number>(0);
 
-        useEffect(() => { //chạy đầu tiên
-        if (loaded || error) {
-        SplashScreen.hideAsync();
-        }
-        }, [loaded, error]);
-        if (!loaded && !error) {
-        return null;
-        }
+    //JSX
+    return (
+        <SafeAreaView style={{flex: 1}}>
+            <View style={styles.screen}>
+                <ScrollView>
+                        <View style={styles.logo}>
+                            <Image 
+                            style={styles.logo_image}
+                            source={require('./assets/images/logo.png')}
+                            />
+                            <Text style={styles.logo_text}>ibody</Text>
+                        </View>
+                        <Text style={styles.header}>Chọn độ tuổi của bạn</Text>
+                        <View style={styles.cards}>
+                        <View style={styles.card}>
+                            <Image
+                                style={[styles.img, styles.img1]}
+                                source={require("./assets/images/1ages.png")}
+                            />
+                        </View>
 
-    //Điều hướng trang
-    const Stack = createNativeStackNavigator<RootStackParamList>();
+                        <View style={styles.card}>
+                            <Image
+                                style={styles.img}
+                                source={require('./assets/images/8ages.png')}
+                            />
+                        </View>
 
-    return ( //tiếp theo thì bắt đầu render những cái bên dưới
-        <NavigationContainer>
-            <Stack.Navigator>
-                    {/* màn hình 1 */}
-                <Stack.Screen 
-                name="home" 
-                component={HomeScreen} 
-                options={{ title: 'Trang chủ' }} // giúp bạn đổi tên sang tiếng Việt từ 'home' sang 'trang chủ'
-            /> 
-                    {/* màn hình 2 */}
-            <Stack.Screen name="review-detail" 
-                component={DetailScreen} 
-                options={{ title: 'Chi tiết Review' }}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
-    )
+                        <View style={styles.card}>
+                            <Image
+                                style={styles.img}
+                                source={require('./assets/images/15ages.png')}
+                            />
+                        </View>
+                    </View>
+                </ScrollView>
+
+                {/* nút hoàn tất */}
+                <TouchableOpacity 
+                    style={styles.bottomButton}
+                    onPress={() => setCount(count + 1)}
+                >
+                    <Text style={styles.buttonText}>Tiếp theo</Text>
+                </TouchableOpacity>
+
+            </View>
+        </SafeAreaView>
+    );
 }
 
 export default App;
-
-//kh học thuộc mà hãy hiểu cách nó hoạt động
-//Moving between screen (nevigation)
-
-//đã coi tới 6:11:18
